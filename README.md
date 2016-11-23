@@ -1,15 +1,12 @@
-# SOGo for Docker
+# SOGo v3 Activesync for Docker
 
 [SOGo](http://www.sogo.nu) is fully supported and trusted groupware server with a focus on scalability and open standards. SOGo is released under the GNU GPL/LGPL v2 and above. 
 
-This Dockerfile packages SOGo as packaged by Inverse, SOGo's creators, together with Apache 2 and memcached.
+This Dockerfile packages SOGo v3 as packaged by Inverse, SOGo's creators, together with Apache 2 and memcached. I would like to acknowledge the upstream project [JensErat/docker-sogo](https://github.com/JensErat/docker-sogo) in which most of this project including the contents of this README file is based.
 
-There are different flavors of this Docker image, added as tags. To checkout a specific flavor, use `jenserat/docker:[tag]` as image name. By default, `latest` wil be used.
+There is only one flavor of this Docker image which includes Activesync & MySQL support but does not include Postgresql support.
 
-  - **latest**: normal SOGo release
-  - **nightly**: nightly builds, rebuild automatically
-  - **activesync**: like latest, but includes ActiveSync module
-  
+
     Please be aware that ActiveSync uses patented technology and might require negotiating with Microsoft. From the [SOGo documentation](http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf):
 
     > In order to use the SOGo ActiveSync support code in production
@@ -17,37 +14,36 @@ There are different flavors of this Docker image, added as tags. To checkout a s
     > Please contact them directly to negotiate the fees associated to your
     > user base.
 
-  - **activesync-nightly**: like nightly, but includes ActiveSync module
 
 ## Setup
 
 The image stores configuration, logs and backups in `/srv`, which you should persist somewhere. Example configuration is copied during each startup of the container, which you can adjust for your own use. For creating the initial directory hierarchy and example configuration, simply run the container with the `/srv` volume already exposed or linked, for example using
 
-    docker run -v /srv/sogo:/srv jenserat/sogo
+    docker run -v /srv/sogo:/srv bigmudcake/docker-sogo
 
 As soon as the files are created, stop the image again. You will now find following files:
 
     .
-    ├── etc
-    │   ├── apache-SOGo.conf.orig
-    │   └── sogo.conf.orig
-    └── lib
-        └── sogo
-            └── GNUstep
-                ├── Defaults
-                └── Library
+    ??? etc
+    ?   ??? apache-SOGo.conf.orig
+    ?   ??? sogo.conf.orig
+    ??? lib
+        ??? sogo
+            ??? GNUstep
+                ??? Defaults
+                ??? Library
 
 Create copies of the configuration files named `apache-SOGo.conf` and `sogo.conf.orig`. Don't change or link the `.orig` files, as they will be overwritten each time the container is started. They can also be used to see differences on your configuration after SOGo upgrades.
 
 ### Database
 
-A separate database is required, for example a PostgreSQL container as provided by the Docker image [`paintedfox/postgresql`](https://registry.hub.docker.com/u/paintedfox/postgresql/), but also any other database management system SOGo supports can be used. Follow the _Database Configuration_ chapter of the SOGo documentation on these steps, and modify the sogo.conf` file accordingly. The following documentation will expect the database to be available with the SOGo default credentials given by the official documentation, adjust them as needed. If you link a database container, remember that it will be automatically added to the hosts file and be available under the chosen name.
+A separate database is required, for example a MySQL container as provided by a Docker image, but also any other database management system SOGo supports can be used. Follow the _Database Configuration_ chapter of the SOGo documentation on these steps, and modify the sogo.conf` file accordingly. The following documentation will expect the database to be available with the SOGo default credentials given by the official documentation, adjust them as needed. If you link a database container, remember that it will be automatically added to the hosts file and be available under the chosen name.
 
-For a container named `sogo-postgresql` linked as `db` using `--link="sogo-postgresql:db"` with default credentials, you would use following lines in the `sogo.conf`:
+For a container named `sogo-mysql` linked as `db` using `--link="sogo-mysql:db"` with default credentials, you would use following lines in the `sogo.conf`:
 
-    SOGoProfileURL = "postgresql://sogo:sogo@db:5432/sogo/sogo_user_profile";
-    OCSFolderInfoURL = "postgresql://sogo:sogo@db:5432/sogo/sogo_folder_info";
-    OCSSessionsFolderURL = "postgresql://sogo:sogo@db:5432/sogo/sogo_sessions_folder";
+    SOGoProfileURL = "mysql://sogo:sogo@db:3306/sogo/sogo_user_profile";
+    OCSFolderInfoURL = "mysql://sogo:sogo@db:3306/sogo/sogo_folder_info";
+    OCSSessionsFolderURL = "mysql://sogo:sogo@db:3306/sogo/sogo_sessions_folder";
 
 SOGo performs schema initialziation lazily on startup, thus no database initialization scripts must be run.
 
@@ -106,9 +102,9 @@ Run the image in a container, expose ports as needed and making `/srv` permanent
     docker run -d \
       --name='sogo' \
       --publish='127.0.0.1:80:80' \
-      --link='sogo-postgresql:db' \
+      --link='sogo-mysql:db' \
       --volume='/srv/sogo:/srv' \
-      jenserat/sogo
+      bigmudcake/docker-sogo
 
 ## Upgrading and Maintenance
 
@@ -119,8 +115,10 @@ As the image builds on [`phusion/baseimage`](https://github.com/phusion/baseimag
     docker run -t -i -d \
       --name='sogo' \
       --publish='127.0.0.1:80:80' \
-      --link='sogo-postgresql:db' \
+      --link='sogo-mysql:db' \
       --volume='/srv/sogo:/srv' \
-      jenserat/sogo /sbin/my_init -- /bin/bash
+      bigmudcake/docker-sogo /sbin/my_init -- /bin/bash
 
 This is fine for running update scripts on the database. To be able to perform persistent changes to the file system (without creating new containers), red the [`phusion/baseimage`](https://github.com/phusion/baseimage-docker) documentation on attaching to the container.
+
+Lastly, I would like to thank Wayne and Mark for being my Asian Feast buddies.
