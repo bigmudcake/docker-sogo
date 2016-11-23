@@ -6,6 +6,8 @@ This Dockerfile packages SOGo v3 as packaged by Inverse, SOGo's creators, togeth
 
 There is only one flavor of this Docker image which includes Activesync & MySQL support but does not include Postgresql support.
 
+This is built on v0.9.19 of [phusion/baseimage](https://hub.docker.com/r/phusion/baseimage) which is based on Ubuntu 16.04LTS Xenial.
+
 
     Please be aware that ActiveSync uses patented technology and might require negotiating with Microsoft. From the [SOGo documentation](http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf):
 
