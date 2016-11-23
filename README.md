@@ -24,14 +24,14 @@ The image stores configuration, logs and backups in `/srv`, which you should per
 As soon as the files are created, stop the image again. You will now find following files:
 
     .
-    ??? etc
-    ?   ??? apache-SOGo.conf.orig
-    ?   ??? sogo.conf.orig
-    ??? lib
-        ??? sogo
-            ??? GNUstep
-                ??? Defaults
-                ??? Library
+    ├── etc
+    │   ├── apache-SOGo.conf.orig
+    │   └── sogo.conf.orig
+    └── lib
+        └── sogo
+            └── GNUstep
+                ├── Defaults
+                └── Library
 
 Create copies of the configuration files named `apache-SOGo.conf` and `sogo.conf.orig`. Don't change or link the `.orig` files, as they will be overwritten each time the container is started. They can also be used to see differences on your configuration after SOGo upgrades.
 
