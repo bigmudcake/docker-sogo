@@ -1,6 +1,10 @@
 FROM            phusion/baseimage:0.9.19
 MAINTAINER	Jens Erat <email@jenserat.de>
 
+# Get phusion/baseimage version tag from 
+##  https://hub.docker.com/r/phusion/baseimage/tags/
+##  https://github.com/phusion/baseimage-docker/blob/master/Changelog.md
+
 # Install Apache, SOGo from repository
 RUN echo "deb http://packages.inverse.ca/SOGo/nightly/3/ubuntu xenial xenial" > /etc/apt/sources.list.d/inverse.list && \
     apt-key adv --keyserver pool.sks-keyservers.net --recv-key FE9E84327B18FF82B0378B6719CDA6A9810273C4 && \
