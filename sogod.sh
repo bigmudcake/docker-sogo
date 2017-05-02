@@ -6,6 +6,7 @@ cp /etc/sogo/sogo.conf /srv/etc/sogo.conf.orig
 
 # Copy back administrator's configuration
 cp /srv/etc/sogo.conf /etc/sogo/sogo.conf
+chown sogo:sogo /etc/sogo/sogo.conf
 
 # Create SOGo home directory if missing
 mkdir -p /srv/lib/sogo
@@ -18,5 +19,9 @@ cp /etc/cron.d/sogo /srv/etc/cron.orig
 cp /srv/etc/cron /etc/cron.d/sogo
 chmod +x /usr/share/doc/sogo/*.sh
 
+# edave - setup log file within srv folder
+touch /srv/sogo.log
+chown sogo:sogo /srv/sogo.log
+
 # Run SOGo in foreground
-exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid
+exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log
