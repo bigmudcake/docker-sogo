@@ -19,4 +19,4 @@ cp /srv/etc/cron /etc/cron.d/sogo
 chmod +x /usr/share/doc/sogo/*.sh
 
 # Run SOGo in foreground
-exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid
+exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log
