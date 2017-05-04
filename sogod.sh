@@ -28,5 +28,16 @@ mkdir -p /srv/log
 chown -R sogo:sogo /srv/log
 chmod -R 0755 /srv/log
 
+# edave - copy custom web server assets back to container
+if [ -d "/srv/WebServerResources" ]; then
+    chmod -R 0755 /srv/WebServerResources
+    cp -r /srv/WebServerResources/* /usr/lib/GNUstep/SOGo/WebServerResources/
+fi
+
+# edave - if not exist copy all web server assets to srv folder
+if [ ! -d "/srv/WebServerResources" ]; then
+    cp -a /usr/lib/GNUstep/SOGo/WebServerResources /srv/
+fi
+
 # Run SOGo in foreground
 exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/log/sogo.log
