@@ -19,6 +19,10 @@ cp /etc/cron.d/sogo /srv/etc/cron.orig
 cp /srv/etc/cron /etc/cron.d/sogo
 chmod +x /usr/share/doc/sogo/*.sh
 
+# edave - set correct access for srv folder
+chown sogo:sogo /srv
+chmod 0775 /srv
+
 # edave - setup log file within srv folder
 touch /srv/sogo.log
 chown sogo:sogo /srv/sogo.log
