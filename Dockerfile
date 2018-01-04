@@ -27,9 +27,9 @@ ADD sogod.sh /etc/service/sogod/run
 ADD apache2.sh /etc/service/apache2/run
 ADD memcached.sh /etc/service/memcached/run
 
-# Make GATEWAY host available, control memcached startup
+# Make GATEWAY host available, control startup of optional services such as memcache and apache
 RUN mkdir -p /etc/my_init.d
-ADD gateway.sh memcached-control.sh /etc/my_init.d/
+ADD gateway.sh control.sh /etc/my_init.d/
 
 # Interface the environment
 VOLUME /srv
