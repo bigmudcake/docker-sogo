@@ -1,5 +1,4 @@
-FROM            phusion/baseimage:0.9.19
-MAINTAINER	Jens Erat <email@jenserat.de>
+FROM            phusion/baseimage:0.11
 
 # Get phusion/baseimage version tag from 
 ##  https://hub.docker.com/r/phusion/baseimage/tags/
