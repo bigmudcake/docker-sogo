@@ -7,7 +7,7 @@ FROM            phusion/baseimage:0.11
 # Install Apache, SOGo from repository
 RUN echo "deb http://packages.inverse.ca/SOGo/nightly/4/ubuntu bionic bionic" > /etc/apt/sources.list.d/inverse.list && \
     apt-key adv --keyserver keys.gnupg.net --recv-key 0x810273C4 && \
-    apt-get update && \
+    apt-get update && touch /usr/share/doc/sogo/empty.sh && \
     apt-get install -y --no-install-recommends gettext-base iproute2 apache2 sogo sogo-activesync sope4.9-gdl1-mysql memcached && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
