@@ -1,12 +1,12 @@
-# SOGo v3 Activesync for Docker
+# SOGo v4 Activesync for Docker
 
 [SOGo](http://www.sogo.nu) is fully supported and trusted groupware server with a focus on scalability and open standards. SOGo is released under the GNU GPL/LGPL v2 and above. 
 
-This Dockerfile packages SOGo v3 as packaged by Inverse, SOGo's creators, together with Apache 2 and memcached. I would like to acknowledge the upstream project [JensErat/docker-sogo](https://github.com/JensErat/docker-sogo) in which most of this project including the contents of this README file is based.
+This Dockerfile packages SOGo v4 as packaged by Inverse, SOGo's creators, together with Apache 2 and memcached. I would like to acknowledge the upstream project [JensErat/docker-sogo](https://github.com/JensErat/docker-sogo) in which most of this project including the contents of this README file is based.
 
 There is only one flavor of this Docker image which includes Activesync & MySQL support but does not include Postgresql support.
 
-This is built on v0.9.19 of [phusion/baseimage](https://hub.docker.com/r/phusion/baseimage) which is based on Ubuntu 16.04LTS Xenial.
+This is built on v0.11 of [phusion/baseimage](https://hub.docker.com/r/phusion/baseimage) which is based on Ubuntu 18.04LTS (Bionic Beaver).
 
 
     Please be aware that ActiveSync uses patented technology and might require negotiating with Microsoft. From the [SOGo documentation](http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf):
