@@ -9,7 +9,7 @@ RUN mkdir -p /usr/share/doc/sogo && \
     touch /usr/share/doc/sogo/empty.sh 
 
 # Integrate SOGo nightly repository into apt sources list
-RUN apt-key adv --keyserver pool.sks-keyservers.net --recv-key 0x810273C4 && \
+RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0x810273C4 && \
     apt-get update && \
     apt-get install apt-transport-https && \
     echo "deb https://packages.inverse.ca/SOGo/nightly/4/ubuntu/ bionic bionic" > /etc/apt/sources.list.d/SOGo.list && \
