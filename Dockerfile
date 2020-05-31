@@ -8,15 +8,11 @@ FROM            phusion/baseimage:0.11
 RUN mkdir -p /usr/share/doc/sogo && \
     touch /usr/share/doc/sogo/empty.sh 
 
-# Integrate SOGo nightly repository into apt sources list
-RUN apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0x810273C4 && \
+# Install Apache, SOGo from repository
+RUN echo "deb http://packages.inverse.ca/SOGo/nightly/4/ubuntu bionic bionic" > /etc/apt/sources.list.d/inverse.list && \
+    apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0x810273C4 && \
     apt-get update && \
-    apt-get install apt-transport-https && \
-    echo "deb https://packages.inverse.ca/SOGo/nightly/4/ubuntu/ bionic bionic" > /etc/apt/sources.list.d/SOGo.list && \
-    apt-get update
-
-# Install Apache, SOGo and other required packages
-RUN apt-get install -y --no-install-recommends gettext-base iproute2 apache2 sogo sogo-activesync sope4.9-gdl1-mysql memcached && \
+    apt-get install -y --no-install-recommends gettext-base iproute2 apache2 sogo sogo-activesync sope4.9-gdl1-mysql memcached && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Activate required Apache modules
