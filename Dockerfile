@@ -10,7 +10,7 @@ RUN mkdir -p /usr/share/doc/sogo && \
 
 # Install Apache, SOGo from repository
 RUN echo "deb http://packages.inverse.ca/SOGo/nightly/4/ubuntu/ bionic bionic" > /etc/apt/sources.list.d/SOGo.list && \
-    apt-key adv --keyserver pool.sks-keyservers.net --recv-key 0x810273C4 && \
+    apt-key adv --keyserver "hkps.pool.sks-keyservers.net" --recv-key 0x810273C4 && \
     apt-get update && \
     apt-get install -y --no-install-recommends gettext-base iproute2 apache2 sogo sogo-activesync sope4.9-gdl1-mysql memcached && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
