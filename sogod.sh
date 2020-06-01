@@ -43,4 +43,4 @@ if [ ! -d "/srv/WebServerResources" ]; then
 fi
 
 # Run SOGo in foreground
-exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/log/sogo.log
+exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/log/sogo.log -SOGoMemcachedHost /tmp/memcached.sock
