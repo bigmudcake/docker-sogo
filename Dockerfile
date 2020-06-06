@@ -1,4 +1,4 @@
-FROM            phusion/baseimage:bionic
+FROM            phusion/baseimage:bionic-1.0.0
 
 # Get phusion/baseimage version tag from 
 ##  https://hub.docker.com/r/phusion/baseimage/tags/
