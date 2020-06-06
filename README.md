@@ -6,7 +6,7 @@ This Dockerfile packages SOGo v4 as packaged by Inverse, SOGo's creators, togeth
 
 There is only one flavor of this Docker image which includes Activesync & MySQL support but does not include Postgresql support.
 
-This is built on v0.11 of [phusion/baseimage](https://hub.docker.com/r/phusion/baseimage) which is based on Ubuntu 18.04LTS (Bionic Beaver).
+This is built on version bionic-1.0.0 of [phusion/baseimage](https://hub.docker.com/r/phusion/baseimage) which is based on Ubuntu 18.04LTS (Bionic Beaver).
 
 
     Please be aware that ActiveSync uses patented technology and might require negotiating with Microsoft. From the [SOGo documentation](http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf):
