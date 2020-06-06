@@ -23,9 +23,9 @@ RUN usermod --home /srv/lib/sogo sogo
 
 # SOGo daemons
 RUN mkdir /etc/service/sogod /etc/service/apache2 /etc/service/memcached
-ADD sogod.sh /etc/service/sogod/run
-ADD apache2.sh /etc/service/apache2/run
-ADD memcached.sh /etc/service/memcached/run
+ADD run_sogod.sh /etc/service/sogod/run
+ADD run_apache2.sh /etc/service/apache2/run
+ADD run_memcached.sh /etc/service/memcached/run
 
 # Install startup script
 RUN mkdir -p /etc/my_init.d
