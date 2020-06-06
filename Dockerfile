@@ -21,11 +21,9 @@ RUN a2enmod headers proxy proxy_http rewrite ssl
 # Move SOGo's data directory to /srv
 RUN usermod --home /srv/lib/sogo sogo
 
-# SOGo daemons
-RUN mkdir /etc/service/sogod /etc/service/apache2 /etc/service/memcached
-ADD run_sogod.sh /etc/service/sogod/run
-ADD run_apache2.sh /etc/service/apache2/run
-ADD run_memcached.sh /etc/service/memcached/run
+# edave - add run daemons
+RUN mkdir -p /runfiles
+ADD run_*.sh /runfiles/
 
 # Install startup script
 RUN mkdir -p /etc/my_init.d
