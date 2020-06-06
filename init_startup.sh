@@ -12,6 +12,15 @@ chmod -R 775 /srv
 # edave - allow log files to be viewed by non-root users
 chmod -R 775 /var/log
 
+# edave - Create orig config files if not exist
+if [ ! -f "/etc/sogo.conf.orig" ]; then
+    cp /etc/cron.d/sogo /etc/cron.orig
+    cp /etc/sogo/sogo.conf /etc/sogo.conf.orig
+fi
+
+# edave - Copy orig config files to /srv as example
+cp /etc/*.orig /srv/etc/
+
 
 # edave - enable/disable execute startup for memcached
 if [ "${memcached}" = "false" ]; then

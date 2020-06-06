@@ -1,15 +1,5 @@
 #!/bin/sh
 
-# edave - Create orig config files if not exist
-if [ ! -f "/etc/sogo.conf.orig" ]; then
-    cp /etc/cron.d/sogo /etc/cron.orig
-    cp /etc/sogo/sogo.conf /etc/sogo.conf.orig
-fi
-
-# edave - Copy orig config files to /srv as example
-mkdir -p /srv/etc
-cp /etc/*.orig /srv/etc/
-
 # Copy back administrator's configuration
 cp /srv/etc/sogo.conf /etc/sogo/sogo.conf 2>/dev/null
 chown sogo:sogo /etc/sogo/sogo.conf
