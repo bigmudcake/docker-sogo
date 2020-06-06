@@ -28,6 +28,7 @@ ADD run_*.sh /runfiles/
 # Install startup script
 RUN mkdir -p /etc/my_init.d
 ADD init_startup.sh /etc/my_init.d/
+RUN chmod 0755 /etc/my_init.d/init_startup.sh
 
 # Interface the environment
 VOLUME /srv /var/log
