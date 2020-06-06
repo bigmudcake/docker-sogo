@@ -35,7 +35,7 @@ RUN mkdir -p /etc/my_init.d
 ADD gateway.sh control.sh /etc/my_init.d/
 
 # Interface the environment
-VOLUME /srv
+VOLUME /srv /var/log
 EXPOSE 80 443 8800 20000
 # USER sogo
 
