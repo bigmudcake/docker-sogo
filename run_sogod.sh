@@ -22,10 +22,6 @@ chown sogo:sogo /srv/lib/sogo
 cp /srv/etc/cron /etc/cron.d/sogo 2>/dev/null
 chmod +x /usr/share/doc/sogo/*.sh
 
-# edave - set correct access for srv folder
-chown sogo:sogo /srv
-chmod 0775 /srv
-
 # edave - copy custom web server assets back to container
 if [ -d "/srv/WebServerResources" ]; then
     chmod -R 0755 /srv/WebServerResources

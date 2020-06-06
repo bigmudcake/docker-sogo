@@ -6,7 +6,6 @@ if [ ! -f "/etc/apache-SOGo.conf.orig" ]; then
 fi
 
 # edave - Copy orig config files to /srv as example
-mkdir -p /srv/etc
 cp /etc/*.orig /srv/etc/
 
 # Only run apache if config file exists
