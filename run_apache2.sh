@@ -1,12 +1,5 @@
 #!/bin/sh
 
-# edave - Create orig config file if not exist
-if [ ! -f "/etc/apache-SOGo.conf.orig" ]; then
-    cp /etc/apache2/conf-available/SOGo.conf /etc/apache-SOGo.conf.orig
-fi
-
-# edave - Copy orig config files to /srv as example
-cp /etc/*.orig /srv/etc/
 
 # Only run apache if config file exists
 if [ -f "/srv/etc/apache-SOGo.conf" ]; then

@@ -15,6 +15,7 @@ chmod -R 775 /var/log
 # edave - Create orig config files if not exist
 if [ ! -f "/etc/sogo.conf.orig" ]; then
     cp /etc/cron.d/sogo /etc/cron.orig
+    cp /etc/apache2/conf-available/SOGo.conf /etc/apache-SOGo.conf.orig
     cp /etc/sogo/sogo.conf /etc/sogo.conf.orig
 fi
 
