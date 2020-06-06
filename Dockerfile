@@ -21,9 +21,6 @@ RUN a2enmod headers proxy proxy_http rewrite ssl
 # Move SOGo's data directory to /srv
 RUN usermod --home /srv/lib/sogo sogo
 
-# Fix memcached not listening on IPv6
-RUN sed -i -e 's/^-l.*/-l localhost/' /etc/memcached.conf
-
 # SOGo daemons
 RUN mkdir /etc/service/sogod /etc/service/apache2 /etc/service/memcached
 ADD sogod.sh /etc/service/sogod/run
