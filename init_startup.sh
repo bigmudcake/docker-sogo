@@ -7,7 +7,10 @@ echo "${GATEWAY} GATEWAY" >> /etc/hosts
 # edave - setup necessary srv subfolders and permissions
 mkdir -p /srv/etc
 chown -R sogo:sogo /srv
-chmod -R 0775 /srv
+chmod -R 775 /srv
+
+# edave - allow log files to be viewed by non-root users
+chmod -R 775 /var/log
 
 
 # edave - enable/disable execute startup for memcached
