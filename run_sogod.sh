@@ -23,11 +23,9 @@ if [ ! -d "/srv/WebServerResources" ]; then
     cp -a /usr/lib/GNUstep/SOGo/WebServerResources /srv/
 fi
 
-# edave - optionally connect SOGo to memcached via a unix socket
-MEMSOCKET=-SOGoMemcachedHost /tmp/memcached.sock
+# edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
 if [ "${memcached}" = "false" ]; then
-    MEMSOCKET=
+    exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log
+else 
+    exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log -SOGoMemcachedHost /tmp/memcached.sock
 fi
-
-# Run SOGo in foreground
-exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log ${MEMSOCKET}
