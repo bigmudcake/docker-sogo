@@ -25,9 +25,10 @@ fi
 
 # edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
 if [ "${memcached}" = "false" ]; then
-    echo "Builtin memcached not loaded. Make sure you set an external memcache using SOGoMemcachedHost"
+    echo "Starting SOGo with builtin memcached not loaded!" 
+	echo "Make sure you set an external memcache using the SOGoMemcachedHost config option"
     exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log
 else 
-    echo "Using builtin memcached via unix socket /tmp/memcached.sock"
+    echo "Starting SOGo using builtin memcached via unix socket /tmp/memcached.sock"
     exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log -SOGoMemcachedHost /tmp/memcached.sock
 fi
