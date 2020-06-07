@@ -24,7 +24,7 @@ if [ ! -d "/srv/WebServerResources" ]; then
 fi
 
 # edave - optionally connect SOGo to memcached via a unix socket
-MEMSOCKET=`-SOGoMemcachedHost /tmp/memcached.sock`
+MEMSOCKET=-SOGoMemcachedHost /tmp/memcached.sock
 if [ "${memcached}" = "false" ]; then
     MEMSOCKET=
 fi
