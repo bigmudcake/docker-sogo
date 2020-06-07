@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copy back administrator's configuration
+# edave - Copy back administrator's configuration
 cp /srv/etc/sogo.conf /etc/sogo/sogo.conf 2>/dev/null
 chown sogo:sogo /etc/sogo/sogo.conf
 
@@ -23,5 +23,11 @@ if [ ! -d "/srv/WebServerResources" ]; then
     cp -a /usr/lib/GNUstep/SOGo/WebServerResources /srv/
 fi
 
+# edave - optionally connect SOGo to memcached via a unix socket
+MEMSOCKET=`-SOGoMemcachedHost /tmp/memcached.sock`
+if [ "${memcached}" = "false" ]; then
+    MEMSOCKET=
+fi
+
 # Run SOGo in foreground
-exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log -SOGoMemcachedHost /tmp/memcached.sock
+exec /sbin/setuser sogo /usr/sbin/sogod -WONoDetach YES -WOPidFile /var/run/sogo/sogo.pid -WOLogFile /srv/sogo.log -SOGoMemcachedHost /tmp/memcached.sock ${MEMSOCKET}
