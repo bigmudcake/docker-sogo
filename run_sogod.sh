@@ -21,19 +21,23 @@ if [ ! -d "/WebServerResources.orig" ]; then
     cp -a /usr/lib/GNUstep/SOGo/WebServerResources /WebServerResources.orig
 fi
 if [ -d "/WebServerResources.orig" ]; then
-    echo "* run_sogod - transferring WebServerResources.orig files to /srv"
+    echo "* run_sogod - transferring WebServerResources.orig css and img files to /srv"
 	rm -rf /srv/WebServerResources.orig 2>/dev/null
-    cp -a /WebServerResources.orig /srv/
+	mkdir -p /srv/WebServerResources.orig
+    cp -a /WebServerResources.orig/css /srv/WebServerResources.orig/css
+    cp -a /WebServerResources.orig/img /srv/WebServerResources.orig/img
 fi
 
 # edave - copy custom web server assets back to container
 if [ -d "/srv/WebServerResources" ]; then
-    echo "* run_sogod - overwrite WebServerResources from custom assets in /srv/WebServerResources"
+    echo "* run_sogod - transfer custom css and img files from /srv/WebServerResources"
     chmod -R 0755 /srv/WebServerResources
-    cp -r /srv/WebServerResources/* /usr/lib/GNUstep/SOGo/WebServerResources/
+    cp -r /srv/WebServerResources/css/* /usr/lib/GNUstep/SOGo/WebServerResources/css/
+    cp -r /srv/WebServerResources/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
 else
-    echo "* run_sogod - create folder /srv/WebServerResources for custom assets"
-    mkdir -p /srv/WebServerResources
+    echo "* run_sogod - create folder /srv/WebServerResources for custom css and img files"
+    mkdir -p /srv/WebServerResources/css
+    mkdir -p /srv/WebServerResources/img
 fi
 
 
