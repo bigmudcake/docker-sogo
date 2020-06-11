@@ -17,28 +17,33 @@ chmod +x /usr/share/doc/sogo/*.sh
 
 # edave - if not exist store and copy all orig web server assets to srv folder
 if [ ! -d "/WebServerResources.orig" ]; then
-    echo "* run_sogod - store WebServerResources files to /WebServerResources.orig"
+    echo "* run_sogod - backup WebServerResources files to /WebServerResources.orig"
     cp -a /usr/lib/GNUstep/SOGo/WebServerResources /WebServerResources.orig
 fi
+
+# edave - process WebServerResources img files to and from srv folder
 if [ -d "/WebServerResources.orig" ]; then
-    echo "* run_sogod - transferring WebServerResources.orig css and img files to /srv"
-	rm -rf /srv/WebServerResources.orig 2>/dev/null
-	mkdir -p /srv/WebServerResources.orig
-    cp -a /WebServerResources.orig/css /srv/WebServerResources.orig/css
-    cp -a /WebServerResources.orig/img /srv/WebServerResources.orig/img
+    echo "* run_sogod - process WebServerResources img files"
+	mkdir -p /srv/img 2>/dev/null
+	rm -rf /srv/img/*.orig
+    cp -a /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
+    cp -a /WebServerResources.orig/img/* /srv/img/*.orig
 fi
 
-# edave - copy custom web server assets back to container
-if [ -d "/srv/WebServerResources" ]; then
-    echo "* run_sogod - transfer custom css and img files from /srv/WebServerResources"
-    chmod -R 0755 /srv/WebServerResources
-    cp -r /srv/WebServerResources/css/* /usr/lib/GNUstep/SOGo/WebServerResources/css/
-    cp -r /srv/WebServerResources/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
+# edave - integrate custom.css from srv folder to WebServerResources 
+echo "* run_sogod - update styles.css in WebServerResources"
+cp -a /WebServerResources.orig/css/styles.css /usr/lib/GNUstep/SOGo/WebServerResources/css/
+if [ -f "/srv/custom.css" ]; then
+    echo "* run_sogod - integrate /srv/custom.css into styles.css"
+    cat /srv/custom.css >> /usr/lib/GNUstep/SOGo/WebServerResources/css/styles.css
 else
-    echo "* run_sogod - create folder /srv/WebServerResources for custom css and img files"
-    mkdir -p /srv/WebServerResources/css
-    mkdir -p /srv/WebServerResources/img
+    echo "* run_sogod - creating empty /srv/custom.css"
+    touch /srv/custom.css
 fi
+
+# edave - make sure WebServerResources files have correct permissions  
+chmod -R 0755 /usr/lib/GNUstep/SOGo/WebServerResources
+
 
 
 # edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
