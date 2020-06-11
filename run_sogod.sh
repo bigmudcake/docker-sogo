@@ -15,30 +15,28 @@ echo "* run_sogod - update internal crontab file from /srv/etc/cron"
 cp /srv/etc/cron /etc/cron.d/sogo 2>/dev/null
 chmod +x /usr/share/doc/sogo/*.sh
 
-# edave - if not exist store and copy all orig web server assets to srv folder
+# edave - backup all web server assets
 if [ ! -d "/WebServerResources.orig" ]; then
     echo "* run_sogod - backup WebServerResources files to /WebServerResources.orig"
     cp -a /usr/lib/GNUstep/SOGo/WebServerResources /WebServerResources.orig
 fi
 
-# edave - process WebServerResources img files to and from srv folder
+# edave - process WebServerResources files 
 if [ -d "/WebServerResources.orig" ]; then
     echo "* run_sogod - process WebServerResources img files"
 	mkdir -p /srv/img 2>/dev/null
 	rm -rf /srv/img/*.orig
     cp -a /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
     cp -a /WebServerResources.orig/img/* /srv/img/*.orig
-fi
-
-# edave - integrate custom.css from srv folder to WebServerResources 
-echo "* run_sogod - update styles.css in WebServerResources"
-cp -a /WebServerResources.orig/css/styles.css /usr/lib/GNUstep/SOGo/WebServerResources/css/
-if [ -f "/srv/custom.css" ]; then
-    echo "* run_sogod - integrate /srv/custom.css into styles.css"
-    cat /srv/custom.css >> /usr/lib/GNUstep/SOGo/WebServerResources/css/styles.css
-else
-    echo "* run_sogod - creating empty /srv/custom.css"
-    touch /srv/custom.css
+    echo "* run_sogod - update styles.css in WebServerResources"
+    cp -a /WebServerResources.orig/css/styles.css /usr/lib/GNUstep/SOGo/WebServerResources/css/
+    if [ -f "/srv/custom.css" ]; then
+        echo "* run_sogod - integrate /srv/custom.css into styles.css"
+        cat /srv/custom.css >> /usr/lib/GNUstep/SOGo/WebServerResources/css/styles.css
+    else
+        echo "* run_sogod - creating empty /srv/custom.css"
+        touch /srv/custom.css
+    fi
 fi
 
 # edave - make sure WebServerResources files have correct permissions  
