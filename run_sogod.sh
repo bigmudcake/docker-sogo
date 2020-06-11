@@ -24,8 +24,8 @@ fi
 # edave - process WebServerResources files 
 if [ -d "/WebServerResources.orig" ]; then
     echo "* run_sogod - process WebServerResources img files"
-	mkdir -p /srv/img 2>/dev/null
-	rm -rf /srv/img/*.orig
+    mkdir -p /srv/img 2>/dev/null
+    rm -rf /srv/img/*.orig
     cp -a /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
     cp -a /WebServerResources.orig/img/* /srv/img/*.orig
     echo "* run_sogod - update styles.css in WebServerResources"
