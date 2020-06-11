@@ -15,18 +15,27 @@ echo "* run_sogod - update internal crontab file from /srv/etc/cron"
 cp /srv/etc/cron /etc/cron.d/sogo 2>/dev/null
 chmod +x /usr/share/doc/sogo/*.sh
 
-# edave - copy custom web server assets back to container
-if [ -d "/srv/WebServerResources" ]; then
-    echo "* run_sogod - update internal WebServerResources files from /srv"
-    chmod -R 0755 /srv/WebServerResources
-    cp -r /srv/WebServerResources/* /usr/lib/GNUstep/SOGo/WebServerResources/
+# edave - if not exist store and copy all orig web server assets to srv folder
+if [ ! -d "/WebServerResources.orig" ]; then
+    echo "* run_sogod - store WebServerResources files to /WebServerResources.orig"
+    cp -a /usr/lib/GNUstep/SOGo/WebServerResources /WebServerResources.orig
+fi
+if [ -d "/WebServerResources.orig" ]; then
+    echo "* run_sogod - transferring WebServerResources.orig files to /srv"
+	rm -rf /srv/WebServerResources.orig 2>/dev/null
+    cp -a /WebServerResources.orig /srv/
 fi
 
-# edave - if not exist copy all web server assets to srv folder
-if [ ! -d "/srv/WebServerResources" ]; then
-    echo "* run_sogod - transferring WebServerResources files to /srv"
-    cp -a /usr/lib/GNUstep/SOGo/WebServerResources /srv/
+# edave - copy custom web server assets back to container
+if [ -d "/srv/WebServerResources" ]; then
+    echo "* run_sogod - overwrite WebServerResources from custom assets in /srv/WebServerResources"
+    chmod -R 0755 /srv/WebServerResources
+    cp -r /srv/WebServerResources/* /usr/lib/GNUstep/SOGo/WebServerResources/
+else
+    echo "* run_sogod - create folder /srv/WebServerResources for custom assets"
+    mkdir -p /srv/WebServerResources
 fi
+
 
 # edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
 if [ "${memcached}" = "false" ]; then
