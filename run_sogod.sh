@@ -15,33 +15,39 @@ echo "* run_sogod - update internal crontab file from /srv/etc/cron"
 cp /srv/etc/cron /etc/cron.d/sogo 2>/dev/null
 chmod +x /usr/share/doc/sogo/*.sh
 
-# edave - backup all web server assets
+# edave - backup all orig web server assets to WebServerResources.orig
 if [ ! -d "/WebServerResources.orig" ]; then
     echo "* run_sogod - backup WebServerResources files to /WebServerResources.orig"
     cp -a /usr/lib/GNUstep/SOGo/WebServerResources /WebServerResources.orig
 fi
 
-# edave - process WebServerResources files 
+# edave - process WebServerResources orig img and css files 
 if [ -d "/WebServerResources.orig" ]; then
-    echo "* run_sogod - process WebServerResources img files"
-    mkdir -p /srv/img 2>/dev/null
-    rm -rf /srv/img/*.orig
-    cp -a /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
-    cp -a /WebServerResources.orig/img/* /srv/img/*.orig
-    echo "* run_sogod - update styles.css in WebServerResources"
+    echo "* run_sogod - process WebServerResources orig img and css files"
+    rm -rf /srv/img.orig 2>/dev/null
+    cp -a /WebServerResources.orig/img /srv/img.orig
+    echo "* run_sogod - copy orig styles.css to WebServerResources"
     cp -a /WebServerResources.orig/css/styles.css /usr/lib/GNUstep/SOGo/WebServerResources/css/
-    if [ -f "/srv/custom.css" ]; then
-        echo "* run_sogod - integrate /srv/custom.css into styles.css"
-        cat /srv/custom.css >> /usr/lib/GNUstep/SOGo/WebServerResources/css/styles.css
-    else
-        echo "* run_sogod - creating empty /srv/custom.css"
-        touch /srv/custom.css
-    fi
 fi
 
-# edave - make sure WebServerResources files have correct permissions  
-chmod -R 0755 /usr/lib/GNUstep/SOGo/WebServerResources
+# edave - integrate srv custom.css into styles.css
+if [ -f "/srv/custom.css" ]; then
+    echo "* run_sogod - integrate /srv/custom.css into styles.css"
+    cat /srv/custom.css >> /usr/lib/GNUstep/SOGo/WebServerResources/css/styles.css
+else
+    echo "* run_sogod - creating empty /srv/custom.css file"
+    touch /srv/custom.css
+fi
 
+# edave - process srv/img files  
+if [ -d "/srv/img" ]; then
+    echo "* run_sogod - copy custom srv/img files to WebServerResources"
+    cp -n /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
+    chmod -R 0755 /usr/lib/GNUstep/SOGo/WebServerResources/img/*
+else
+    echo "* run_sogod - creating folder /srv/img"
+    mkdir -p /srv/img
+fi
 
 
 # edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
