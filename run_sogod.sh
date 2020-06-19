@@ -49,6 +49,14 @@ else
     mkdir -p /srv/img
 fi
 
+# edave - copy WebServerResources to srv to allow access if running Apache on host and not in container
+# WebServerResources folder on srv is regenerated on every container restart to maximise file security
+echo "* run_sogod - install WebServerResources to srv/lib"
+rm -rf /srv/lib/WebServerResources 2>/dev/null
+mkdir -p /srv/lib 2>/dev/null
+cp -a /usr/lib/GNUstep/SOGo/WebServerResources  /srv/lib/WebServerResources
+chmod -R 0755 /srv/lib/WebServerResources
+
 
 # edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
 if [ "${memcached}" = "false" ]; then
