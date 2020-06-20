@@ -9,7 +9,7 @@ RUN mkdir -p /usr/share/doc/sogo && \
     touch /usr/share/doc/sogo/empty.sh 
 
 # edave install GPG Key
-RUN sudo apt-key adv --keyserver keys.gnupg.net --recv-key 0x810273C4 && \
+RUN apt-key adv --keyserver keys.gnupg.net --recv-key 0x810273C4 && \
     apt-get update
 
 # Install Apache, SOGo from repository
