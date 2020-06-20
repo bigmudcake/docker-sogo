@@ -43,7 +43,7 @@ fi
 if [ -d "/srv/img" ]; then
     echo "* run_sogod - copy custom srv/img files to WebServerResources"
     cp -a /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
-    chmod -R 0755 /usr/lib/GNUstep/SOGo/WebServerResources/img/*
+    chmod -R 755 /usr/lib/GNUstep/SOGo/WebServerResources/img/*
 else
     echo "* run_sogod - creating folder /srv/img"
     mkdir -p /srv/img
@@ -55,7 +55,7 @@ echo "* run_sogod - install WebServerResources to srv/lib"
 rm -rf /srv/lib/WebServerResources 2>/dev/null
 mkdir -p /srv/lib 2>/dev/null
 cp -a /usr/lib/GNUstep/SOGo/WebServerResources  /srv/lib/WebServerResources
-chmod -R 0755 /srv/lib/WebServerResources
+chmod -R 755 /srv/lib/WebServerResources
 
 
 # edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
