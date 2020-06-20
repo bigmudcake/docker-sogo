@@ -42,7 +42,7 @@ fi
 # edave - process srv/img files  
 if [ -d "/srv/img" ]; then
     echo "* run_sogod - copy custom srv/img files to WebServerResources"
-    cp -n /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
+    cp -a /srv/img/* /usr/lib/GNUstep/SOGo/WebServerResources/img/
     chmod -R 0755 /usr/lib/GNUstep/SOGo/WebServerResources/img/*
 else
     echo "* run_sogod - creating folder /srv/img"
