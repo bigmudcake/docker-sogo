@@ -12,7 +12,7 @@ RUN mkdir -p /usr/share/doc/sogo && \
 RUN echo "deb http://packages.inverse.ca/SOGo/nightly/4/ubuntu/ bionic bionic" > /etc/apt/sources.list.d/SOGo.list && \
     apt-key adv --keyserver 192.146.137.141 --recv-key 0x810273C4 && \
     apt-get update && \
-    apt-get install -y --no-install-recommends gettext-base iproute2 net-tools apache2 sogo sogo-activesync sope4.9-gdl1-mysql memcached ping traceroute && \
+    apt-get install -y --no-install-recommends gettext-base iproute2 net-tools apache2 sogo sogo-activesync sope4.9-gdl1-mysql memcached inetutils-ping inetutils-traceroute && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Activate required Apache modules
