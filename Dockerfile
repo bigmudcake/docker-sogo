@@ -8,7 +8,7 @@ FROM            phusion/baseimage:bionic-1.0.0
 RUN mkdir -p /usr/share/doc/sogo && \
     touch /usr/share/doc/sogo/empty.sh 
 
-# Install Apache, SOGo from repository (use keyserver "hkps.pool.sks-keyservers.net")
+# Install Apache, SOGo from repository (using IP address for keyserver "hkps.pool.sks-keyservers.net")
 RUN echo "deb http://packages.inverse.ca/SOGo/nightly/4/ubuntu/ bionic bionic" > /etc/apt/sources.list.d/SOGo.list && \
     apt-key adv --keyserver 192.146.137.141 --recv-key 0x810273C4 && \
     apt-get update && \
