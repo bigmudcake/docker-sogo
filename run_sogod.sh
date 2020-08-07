@@ -51,7 +51,7 @@ fi
 
 # edave - copy /usr/lib/GNUstep/SOGo to srv to allow access if running webserver on host only mode
 # GNUstep/SOGo folder on srv is regenerated on every container restart to maximise file security
-echo "* run_sogod - install /usr/lib/GNUstep to srv/GNUstep"
+echo "* run_sogod - install /usr/lib/GNUstep/SOGo to srv/GNUstep/SOGo"
 rm -rf /srv/GNUstep 2>/dev/null
 mkdir -p /srv/GNUstep 2>/dev/null
 cp -a /usr/lib/GNUstep/SOGo  /srv/GNUstep/SOGo
