@@ -19,7 +19,7 @@ RUN echo "deb http://packages.inverse.ca/SOGo/nightly/4/ubuntu/ bionic bionic" >
 RUN a2enmod headers proxy proxy_http rewrite ssl
 
 # Move SOGo's data directory to /srv
-RUN usermod --home /srv/lib/sogo sogo
+RUN usermod --home /srv/lib/home/sogo sogo
 
 # edave - add run daemons
 RUN mkdir -p /runfiles

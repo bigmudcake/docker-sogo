@@ -6,9 +6,9 @@ cp /srv/etc/sogo.conf /etc/sogo/sogo.conf 2>/dev/null
 chown sogo:sogo /etc/sogo/sogo.conf
 
 # Create SOGo home directory if missing
-echo "* run_sogod - create SOGo home folder /srv/lib/sogo"
-mkdir -p /srv/lib/sogo
-chown sogo:sogo /srv/lib/sogo
+echo "* run_sogod - create SOGo home folder /srv/lib/home/sogo"
+mkdir -p /srv/lib/home/sogo
+chown sogo:sogo /srv/lib/home/sogo
 
 # Load crontab
 echo "* run_sogod - update internal crontab file from /srv/etc/cron"
@@ -49,13 +49,13 @@ else
     mkdir -p /srv/img
 fi
 
-# edave - copy /usr/lib/GNUstep/SOGo to srv to allow access if running webserver on host only mode
-# GNUstep/SOGo folder on srv is regenerated on every container restart to maximise file security
-echo "* run_sogod - install /usr/lib/GNUstep/SOGo to srv/GNUstep/SOGo"
-rm -rf /srv/GNUstep 2>/dev/null
-mkdir -p /srv/GNUstep 2>/dev/null
-cp -a /usr/lib/GNUstep/SOGo  /srv/GNUstep/SOGo
-chmod -R 755 /srv/GNUstep
+# edave - copy /usr/lib/GNUstep/SOGo to srv/lib to allow access if running webserver on host only mode
+# GNUstep/SOGo folder in srv/lib is regenerated on every container restart to maximise file security
+echo "* run_sogod - install /usr/lib/GNUstep/SOGo to srv/lib/GNUstep/SOGo"
+rm -rf /srv/lib/GNUstep 2>/dev/null
+mkdir -p /srv/lib/GNUstep 2>/dev/null
+cp -a /usr/lib/GNUstep/SOGo  /srv/lib/GNUstep/SOGo
+chmod -R 755 /srv/lib/GNUstep
 
 
 # edave - Run SOGo in foreground and optionally connect SOGo to memcached via a unix socket
