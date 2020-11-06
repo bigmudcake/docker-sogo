@@ -9,7 +9,7 @@ RUN mkdir -p /usr/share/doc/sogo && \
     touch /usr/share/doc/sogo/empty.sh 
 
 # Install Apache, SOGo from repository (using IP address for keyserver "hkps.pool.sks-keyservers.net")
-RUN echo "https://packages.inverse.ca/SOGo/nightly/5/ubuntu/ bionic bionic" > /etc/apt/sources.list.d/SOGo.list && \
+RUN echo "deb https://packages.inverse.ca/SOGo/nightly/5/ubuntu/ bionic bionic" > /etc/apt/sources.list.d/SOGo.list && \
     apt-key adv --keyserver 192.146.137.141 --recv-key 0x810273C4 && \
     apt-get update && \
     apt-get install -y --no-install-recommends gettext-base iproute2 net-tools apache2 sogo sogo-activesync libwbxml2-0 sope4.9-gdl1-mysql memcached inetutils-ping inetutils-traceroute && \
